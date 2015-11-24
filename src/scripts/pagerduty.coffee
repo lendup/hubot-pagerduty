@@ -41,35 +41,7 @@ getTextDate = (date) ->
 
 # more ghetto shit -erikh
 getUTCTextTime = (date) ->
-  month = date.getUTCMonth() + 1
-  day = date.getUTCDate()
-  today = "#{date.getUTCFullYear()}-"
-  hours = date.getUTCHours()
-  minutes = date.getUTCMinutes()
-
-  # this is pretty horrible
-  if hours < 10
-    hours = "0#{hours}"
-  else
-    hours = "#{hours}"
-
-  if minutes < 10
-    minutes = "0#{minutes}"
-  else
-    minutes = "#{minutes}"
-
-  if month < 10
-    month = "0#{month}"
-  else
-    month = "#{month}"
-
-  if day < 10
-    day = "0#{day}"
-  else
-    day = "#{day}"
-
-  today += "#{month}-#{day}T#{hours}:#{minutes}Z"
-  return today
+  return date.toISOString()
 
 getFetcher = (schedule, func) ->
   return (msg, today, tomorrow) ->
@@ -78,8 +50,8 @@ getFetcher = (schedule, func) ->
     msg
       .http("https://#{subdomain}.pagerduty.com/api/v1/schedules/"+schedule_id+"/entries")
       .query
-#        since: getTextDate(today)
-#        until: getTextDate(tomorrow)
+        since: getTextDate(today)
+        until: getTextDate(tomorrow)
       .headers
         "Content-type": "application/json"
         "Authorization": "Token token=" + token
