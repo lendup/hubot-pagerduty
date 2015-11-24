@@ -48,7 +48,7 @@ getFetcher = (schedule, func) ->
         "Authorization": "Token token=" + token
       .get() (err, res, body) ->
         result = JSON.parse(body)
-        msg.send "#{schedule_name}: #{result.entries[0].user.name}" 
+        msg.send " • *#{schedule_name}:* #{result.entries[0].user.name}" 
         func(msg, today, tomorrow) if func?
 
 setOverride = (msg, time, userid) ->
