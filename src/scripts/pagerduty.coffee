@@ -78,8 +78,8 @@ getFetcher = (schedule, func) ->
     msg
       .http("https://#{subdomain}.pagerduty.com/api/v1/schedules/"+schedule_id+"/entries")
       .query
-        since: getTextDate(today)
-        until: getTextDate(tomorrow)
+#        since: getTextDate(today)
+#        until: getTextDate(tomorrow)
       .headers
         "Content-type": "application/json"
         "Authorization": "Token token=" + token
