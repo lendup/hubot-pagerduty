@@ -31,16 +31,7 @@ seen_incidents = { }
 zeropad = (number) ->
   return ("0" + number).slice(-2)
 
-# this is seriously some ghetto shit. if someone else knows how to make it
-# better, please do. -erikh
 getTextDate = (date) ->
-  month = date.getMonth() + 1
-  day = date.getDate()
-  year = date.getFullYear()
-  return "#{year}-#{zeropad(month)}-#{zeropad(day)}"
-
-# more ghetto shit -erikh
-getUTCTextTime = (date) ->
   return date.toISOString()
 
 getFetcher = (schedule, func) ->
@@ -72,8 +63,8 @@ setOverride = (msg, time, userid) ->
       result = JSON.parse(body)
       if result.schedules?
         now = new Date()
-        start = getUTCTextTime(now)
-        end = getUTCTextTime(new Date(now.getTime() + (time * 60000)))
+        start = getTextDate(now)
+        end = getTextDate(new Date(now.getTime() + (time * 60000)))
         data = { 
           "override": { "user_id": userid, "start": start, "end": end }
         }
